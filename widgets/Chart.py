@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QWidget, QDesktopWidget, QApplication, QHBoxLayout, QVBoxLayout, QPushButton
+from PyQt5.QtWidgets import QWidget, QDesktopWidget, QApplication, QHBoxLayout, QVBoxLayout, QPushButton, QGroupBox, \
+    QCheckBox
 import numpy as np
 import pyqtgraph as pg
 
@@ -7,20 +8,26 @@ class Chart(QVBoxLayout):
     def __init__(self):
         super().__init__()
 
-        self.btn_layout = QHBoxLayout()
+        self.setting_layout = QHBoxLayout()
 
-        add_compare_line_btn = QPushButton("添加一条比对曲线")
-        show_min_btn = QPushButton("显示最小值")
-        show_max_btn = QPushButton("显示最大值")
-        show_diff_btn = QPushButton("显示变化曲线")
+        box_group = QGroupBox("显示设置")
+        box_group.setFlat(False)
 
-        self.btn_layout.addWidget(add_compare_line_btn)
-        self.btn_layout.addWidget(show_min_btn)
-        self.btn_layout.addWidget(show_max_btn)
-        self.btn_layout.addWidget(show_diff_btn)
+        # 定义头部选择框
+        self.add_compare_line_btn = QPushButton("添加一条比对曲线")
+        # self.add_compare_line_btn.stateChanged.connect()
+        self.show_min_check_box = QCheckBox("显示最小值")
+        self.show_max_check_box = QCheckBox("显示最大值")
+        self.show_diff_check_box = QCheckBox("显示变化曲线")
+
+        self.setting_layout.addWidget(self.add_compare_line_btn)
+        self.setting_layout.addWidget(self.show_min_check_box)
+        self.setting_layout.addWidget(self.show_max_check_box)
+        self.setting_layout.addWidget(self.show_diff_check_box)
+        self.setting_layout.addStretch()
+
         self.addStretch()
-
-        self.addLayout(self.btn_layout)
+        self.addLayout(self.setting_layout)
 
         win = pg.GraphicsLayoutWidget(None, show=True)
         # 设置widget大小
